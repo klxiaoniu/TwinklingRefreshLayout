@@ -81,19 +81,16 @@ public class ScrollingUtil {
         }
     }
 
-    public static boolean isScrollViewOrWebViewToTop(View view) {
-        return view != null && view.getScrollY() == 0;
-    }
-
     public static boolean isViewToTop(View view, int mTouchSlop) {
         if (view instanceof AbsListView) return isAbsListViewToTop((AbsListView) view);
         if (view instanceof RecyclerView) return isRecyclerViewToTop((RecyclerView) view);
-        return (view != null && Math.abs(view.getScrollY()) <= 2 * mTouchSlop);
+        return (view != null && Math.abs(view.getScrollY()) == 0);
     }
 
     public static boolean isViewToBottom(View view, int mTouchSlop) {
         if (view instanceof AbsListView) return isAbsListViewToBottom((AbsListView) view);
         if (view instanceof RecyclerView) return isRecyclerViewToBottom((RecyclerView) view);
+        if (view instanceof ScrollView) return isScrollViewToBottom((ScrollView) view);
         if (view instanceof WebView) return isWebViewToBottom((WebView) view, mTouchSlop);
         if (view instanceof ViewGroup) return isViewGroupToBottom((ViewGroup) view);
         return false;
